@@ -1,0 +1,64 @@
+package com.app.main;
+
+import java.util.Scanner;
+
+import org.apache.log4j.Logger;
+
+import com.app.dao.impl.LoginDAOImpl;
+import com.app.exception.BusinessException;
+import com.app.model.Login;
+
+public class MainFunctions {
+	private static Logger log = Logger.getLogger(MainFunctions.class);
+	
+	int logInMenu() {
+		Scanner sc = new Scanner (System.in);
+		
+		log.info("Welcome to Jason's Bank app V1.0");
+		int ch = 0;
+		
+		do {
+			
+			log.info("Log In Menu");
+			log.info("---------------------------------------");
+			log.info(System.lineSeparator());
+			log.info("1) Log in as Employee");
+			log.info("2) Log in as Customer");
+			log.info("3) Exit bank app");
+			try {
+				ch= Integer.parseInt(sc.nextLine());
+			}catch(NumberFormatException e) {}
+			
+			if(ch >=1 && ch <4)
+				return ch;
+			else {
+				log.info("Invalid menu choice please try again.");
+				log.info("");
+			}
+		}while(true);
+	
+	}
+	
+	boolean LogInAsCustomer(){
+		boolean valid= false;
+		LoginDAOImpl loginDAO = new LoginDAOImpl();
+		String username, password;
+		Scanner scan = new Scanner(System.in);
+		log.info("Please enter your username:");
+		username = scan.nextLine();
+		log.info("Please enter your password:");
+		password = scan.nextLine();
+		try {
+			Login login = loginDAO.credentialVerification(username,password);
+			if(login !=null) {
+				log.info("Successfully Logged In As Customer! ");
+				log.info("");
+				log.info("Your user ID is: "+ login.getUser_id());
+				valid = true;
+			}
+		}catch(BusinessException e) {
+			log.info(e);
+		}
+		return valid;
+	}
+}

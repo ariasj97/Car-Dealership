@@ -1,0 +1,13 @@
+package com.app.model;
+
+public class Lot {
+
+	private int car_id;
+	private String make;
+	private String model;
+	private int year;
+	private double cost;
+	private String status;
+	
+	
+}

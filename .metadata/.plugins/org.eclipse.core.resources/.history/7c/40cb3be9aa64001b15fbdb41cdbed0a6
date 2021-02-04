@@ -1,0 +1,9 @@
+package com.app.service;
+
+import com.bank.exception.BusinessException;
+import com.bank.model.Login;
+
+public interface LoginDAO {
+	public Login credentialVerification(String username,String password) throws BusinessException;
+	public int newCredentials(Login login)throws BusinessException;
+}
