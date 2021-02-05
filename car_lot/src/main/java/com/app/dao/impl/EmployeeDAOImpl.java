@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.app.dao.EmployeeDAO;
 import com.app.dao.dbutil.PostgresqlConnection;
@@ -13,10 +15,11 @@ import com.app.dao.impl.EmployeeDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.Customer;
 import com.app.model.Employee;
+import com.app.service.EmployeeServiceImpl;
 
 public class EmployeeDAOImpl implements EmployeeDAO{
 	
-		private static Logger log = Logger.getLogger(EmployeeDAOImpl.class);
+	private static final Logger log = LogManager.getFormatterLogger(EmployeeDAO.class);
 		
 		@Override
 		public int newCustomer(Customer customer)throws BusinessException {
@@ -33,7 +36,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				c= preparedStatement.executeUpdate();
 				
 				
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch ( SQLException e) {
 				System.out.println(e);
 				throw new BusinessException("internal error occured contact sysadmin");
 			}
@@ -60,7 +63,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 					throw new BusinessException("No combination of inputted user id and account number found");
 					
 				}
-			}catch(ClassNotFoundException | SQLException e) {
+			}catch( SQLException e) {
 				log.info(e);
 				throw new BusinessException("internal error occured contact sysadmin");
 			}

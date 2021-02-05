@@ -67,7 +67,7 @@ public class Cars {
 		return availability;
 	}
 
-	public void setStatus(Boolean availability) {
+	public void setAvailability(Boolean availability) {
 		this.availability = availability;
 	}
 

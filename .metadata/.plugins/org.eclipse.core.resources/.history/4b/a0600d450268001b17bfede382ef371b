@@ -1,0 +1,10 @@
+package com.app.dao;
+
+import com.app.exception.BusinessException;
+import com.app.model.Cars;
+
+public interface CarsDAO {
+
+	public int newCar(Cars car) throws BusinessException;
+	public List viewAllCars() throws BusinessException;
+}

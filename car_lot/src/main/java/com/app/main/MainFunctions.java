@@ -2,40 +2,43 @@ package com.app.main;
 
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.app.dao.impl.LoginDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.Login;
+import com.app.dao.EmployeeDAO;
 import com.app.dao.impl.EmployeeDAOImpl;
 import com.app.model.Employee;
 
 public class MainFunctions {
-	private static Logger log = Logger.getLogger(MainFunctions.class);
+	private static final Logger log = LogManager.getFormatterLogger(EmployeeDAO.class);
 	
 	int logInMenu() {
 		Scanner sc = new Scanner (System.in);
 		
-		log.info("Welcome to Jason's Car Dealership V1.0");
+		System.out.println("Welcome to Jason's Car Dealership V1.0");
 		int ch = 0;
 		
 		do {
 			
-			log.info("Log In Menu");
-			log.info("---------------------------------------");
-			log.info(System.lineSeparator());
-			log.info("1) Log in as Employee");
-			log.info("2) Log in as Customer");
-			log.info("3) Exit app");
+			System.out.println("Log In Menu");
+			System.out.println("---------------------------------------");
+			System.out.println(System.lineSeparator());
+			System.out.println("1) Log in as Employee");
+			System.out.println("2) Log in as Customer");
+			System.out.println("3) Register a new Customer");
+			System.out.println("4) Exit app");
 			try {
 				ch= Integer.parseInt(sc.nextLine());
 			}catch(NumberFormatException e) {}
 			
-			if(ch >=1 && ch <4)
+			if(ch >=1 && ch <5)
 				return ch;
 			else {
-				log.info("Invalid menu choice please try again.");
-				log.info("");
+				System.out.println("Invalid menu choice please try again.");
+				System.out.println("");
 			}
 		}while(true);
 	
@@ -46,20 +49,20 @@ public class MainFunctions {
 		LoginDAOImpl loginDAO = new LoginDAOImpl();
 		String username, password;
 		Scanner scan = new Scanner(System.in);
-		log.info("Please enter your username:");
+		System.out.println("Please enter your username:");
 		username = scan.nextLine();
-		log.info("Please enter your password:");
+		System.out.println("Please enter your password:");
 		password = scan.nextLine();
 		try {
 			Login login = loginDAO.credentialVerification(username,password);
 			if(login !=null) {
-				log.info("Successfully Logged In As Customer! ");
-				log.info("");
-				log.info("Your user ID is: "+ login.getUser_id());
+				System.out.println("Successfully Logged In As Customer! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ login.getUser_id());
 				valid = true;
 			}
 		}catch(BusinessException e) {
-			log.info(e);
+			System.out.println(e);
 		}
 		return valid;
 	}
@@ -71,21 +74,45 @@ public class MainFunctions {
 		EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
 		int user_id,account_number;
 		Scanner scan = new Scanner(System.in);
-		log.info("Please enter your user ID:");
+		System.out.println("Please enter your user ID:");
 		user_id = scan.nextInt();
-		log.info("Please enter your account_number:");
+		System.out.println("Please enter your account_number:");
 		account_number = scan.nextInt();
 		try {
 			Employee employee = employeeDAO.employeeLogin(user_id, account_number);
 			if(employee !=null) {
-				log.info("Successfully Logged In As Employee! ");
-				log.info("");
-				log.info("Your user ID is: "+ employee.getEmployee_id());
-				log.info("");
+				System.out.println("Successfully Logged In As Employee! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ employee.getEmployee_id());
+				System.out.println("");
+				valid = true;
+				log.trace("Employee "+employee.getEmployee_id()+ "has logged in");
+			}
+		}catch(BusinessException e) {
+			System.out.println(e);
+		}
+		return valid;
+	}
+	
+	boolean NewCustomer(){
+		boolean valid= false;
+		LoginDAOImpl loginDAO = new LoginDAOImpl();
+		String username, password;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter a username:");
+		username = scan.nextLine();
+		System.out.println("Please enter your password:");
+		password = scan.nextLine();
+		try {
+			Login login = loginDAO.credentialVerification(username,password);
+			if(login !=null) {
+				System.out.println("Successfully Logged In As Customer! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ login.getUser_id());
 				valid = true;
 			}
 		}catch(BusinessException e) {
-			log.info(e);
+			System.out.println(e);
 		}
 		return valid;
 	}
