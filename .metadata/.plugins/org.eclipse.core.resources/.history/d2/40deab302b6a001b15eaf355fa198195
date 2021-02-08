@@ -1,0 +1,12 @@
+package com.app.dao;
+
+import java.util.List;
+
+import com.app.exception.BusinessException;
+import com.app.model.Offers;
+
+public interface OffersDAO {
+
+	int newOffer(Offers offer) throws BusinessException;
+	public List<Offers> viewAllOffers() throws BusinessException;
+}

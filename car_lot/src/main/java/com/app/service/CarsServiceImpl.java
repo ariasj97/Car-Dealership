@@ -17,6 +17,8 @@ public class CarsServiceImpl {
 		try {
 			if(carsDAO.newCar(car) != 0) 
 				valid = 1;	
+			else 
+				System.out.println("Car cannot be added. Please re-enter with valid car information");
 		}catch(BusinessException e) {
 			System.out.println(e.getMessage());
 		}
@@ -43,5 +45,11 @@ public class CarsServiceImpl {
 			System.out.println(e.getMessage());
 		}
 		return valid;
+	}
+	
+	public List<Cars> viewAvailableCars() throws BusinessException {
+		List<Cars> allCarsList = null;
+		allCarsList = carsDAO.viewAvailableCars();
+		return allCarsList;
 	}
 }

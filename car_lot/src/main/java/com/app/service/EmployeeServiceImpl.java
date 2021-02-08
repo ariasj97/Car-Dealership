@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 
 import com.app.exception.BusinessException;
-import com.app.model.Customer;
 import com.app.service.EmployeeServiceImpl;
 import com.app.dao.EmployeeDAO;
 import com.app.dao.impl.EmployeeDAOImpl;
@@ -20,15 +19,4 @@ public class EmployeeServiceImpl {
 	private EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 	
 
-	public int newCustomer(Customer customer) throws BusinessException {
-		int valid=0;
-		try {
-			if(employeeDAO.newCustomer(customer) !=0) {
-				valid = 1;
-			}
-		}catch (BusinessException e) {
-			log.info(e.getMessage());
-		}
-		return valid;
-	}
 }

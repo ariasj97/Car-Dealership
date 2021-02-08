@@ -1,0 +1,78 @@
+package com.app.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.dao.OffersDAO;
+import com.app.dao.dbutil.PostgresqlConnection;
+import com.app.exception.BusinessException;
+import com.app.model.Cars;
+import com.app.model.Offers;
+
+public class OffersDAOImpl implements OffersDAO {
+
+	@Override
+	public int newOffer(Offers offer) throws BusinessException {
+		int c = 0;
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			String sql ="insert into public.offers(car_id,user_id,offer_made,asking_price,years) values(?,?,?,?,?)  ";
+			PreparedStatement preparedStatement =connection.prepareStatement(sql);
+			preparedStatement.setInt(1, offer.getCar_id());
+			preparedStatement.setInt(2, offer.getUser_id());
+			preparedStatement.setDouble(3,offer.getOffer_made() );
+			preparedStatement.setDouble(4, offer.getAsking_price());
+			preparedStatement.setInt(5, offer.getYears());
+			
+			c= preparedStatement.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e);
+			System.out.println("Entered invalid information please try again with valid offer infromation");
+			throw new BusinessException("internal error occured contact sysadmin");
+		}
+		
+		
+		return c;
+	}
+
+	@Override
+	public List<Offers> viewAllOffers() throws BusinessException {
+		List<Offers> offersList = new ArrayList<>();
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			String sql= "select * from public.offers";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet= preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				Offers offers = new Offers();
+				offers.setCar_id(resultSet.getInt("car_id"));
+				offers.setUser_id(resultSet.getInt("user_id"));
+				offers.setOffer_made(resultSet.getDouble("offer_made"));
+				offers.setAsking_price(resultSet.getDouble("asking_price") );
+				offers.setYears(resultSet.getInt("years"));
+				offers.setAccepted(resultSet.getBoolean("accepted"));
+				offers.setOffer_id(resultSet.getInt("offer_id"));
+				offersList.add(offers);
+			}
+			
+			if(carList.size()==0) {
+				throw new BusinessException("No cars in the database so far ");
+			}
+		}catch (SQLException e) {
+			System.out.println(e);
+			throw new BusinessException("internal error occured contact sysadmin");
+		}
+		
+		
+		
+		return offersList;
+	}
+
+}

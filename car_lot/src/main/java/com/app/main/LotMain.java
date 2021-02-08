@@ -1,5 +1,6 @@
 package com.app.main;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,9 +9,15 @@ import org.apache.logging.log4j.Logger;
 
 import com.app.dao.EmployeeDAO;
 import com.app.exception.BusinessException;
+import com.app.model.Account;
 import com.app.model.Cars;
+import com.app.model.Login;
+import com.app.model.Offers;
+import com.app.service.AccountServiceImpl;
 import com.app.service.CarsServiceImpl;
 import com.app.service.EmployeeServiceImpl;
+import com.app.service.LoginServiceImpl;
+import com.app.service.OffersServiceImpl;
 
 
 public class LotMain {
@@ -24,11 +31,16 @@ public class LotMain {
 		int choice = logInMenu.logInMenu();
 		int employeeChoice = 0;
 		int customerChoice = 0;
+		int userChoice = 0;
 
 		MainFunctions logInAsEmployee = new MainFunctions();
 		MainFunctions logInAsCustomer = new MainFunctions();
 		
 		CarsServiceImpl carsService = new CarsServiceImpl();
+		OffersServiceImpl offersService = new OffersServiceImpl();
+		LoginServiceImpl loginService = new LoginServiceImpl();
+		AccountServiceImpl accountService = new AccountServiceImpl();
+		
 		Scanner sc = new Scanner(System.in);
 
 		if (choice == 1) {
@@ -37,52 +49,52 @@ public class LotMain {
 				logInAsEmployee.LogInEmployee();
 			}
 
-			EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-
 			do {
 				System.out.println("Employee Menu");
 				System.out.println("--------------------------------------------");
 				System.out.println("1)Add Cars");
 				System.out.println("2)View All Cars");
 				System.out.println("3)Remove Cars");
-				System.out.println("4)View Payments");
-				System.out.println("5)Exit");
+				System.out.println("4)View Offers");
+				System.out.println("5)Accept / Deny Offers");
+				System.out.println("6)Exit");
+				
 				try {
 					employeeChoice = Integer.parseInt(sc.nextLine());
-				} catch (NumberFormatException e) {
-				}
+				} catch (NumberFormatException e) {}
 
 				switch (employeeChoice) {
 				case 1:
-					System.out.println("Enter the new cars details:");
-					System.out.println("Car ID: ");
-					int car_id = Integer.parseInt(sc.nextLine());
-					
-					System.out.println("Make: ");
-					String make = sc.nextLine();
-					
-					System.out.println("Model: ");
-					String model = sc.nextLine();
-					
-					System.out.println("Year: ");
-					int year = Integer.parseInt(sc.nextLine());
-					
-					System.out.println("Cost: $");
-					double cost = Double.parseDouble(sc.nextLine());
-					
-					System.out.println("Availability: ");
-					boolean availability = sc.nextBoolean();
-					
 					try {
-						Cars cars = new Cars(car_id,make, model,year,cost,availability);
+						System.out.println("Enter the new cars details:");
+			
+						System.out.println("Make: ");
+						String make = sc.nextLine();
+						
+						System.out.println("Model: ");
+						String model = sc.nextLine();
+						
+						System.out.println("Year: ");
+						int year = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("Cost: $");
+						double cost = Double.parseDouble(sc.nextLine());
+						
+						System.out.println("Availability: ");
+						boolean availability = sc.nextBoolean();
+						
+						Cars cars = new Cars(make, model,year,cost,availability);
 						int valid = carsService.newCar(cars);
 						if (valid!=0) {
 							System.out.println("New Car added to the lot!");
-							System.out.println("");
-							break;
-						}
+							System.out.println("\n");
+						}	
+					}catch(NumberFormatException e) {
+						System.out.println("Invalid input. Please try again with valid information");
 					}catch(BusinessException e) {
 						System.out.println(e.getMessage());
+					}catch(InputMismatchException e) {
+						System.out.println("Invalid input. Please try again with valid information");
 					}
 					
 					break;
@@ -93,7 +105,7 @@ public class LotMain {
 					try {
 						List<Cars> allCarsList = carsService.viewAllCars();
 						if(allCarsList!=null && allCarsList.size()>0) {
-							System.out.println("There are "+ allCarsList.size()+" cutomers in this database. Printing thier information now.");
+							System.out.println("There are "+ allCarsList.size()+" cars in this database. Printing their information now.");
 							for(Cars c:allCarsList) {
 								System.out.println(c);
 							}
@@ -107,7 +119,7 @@ public class LotMain {
 				case 3:
 					System.out.println("Enter the new cars details:");
 					System.out.println("Car ID: ");
-					car_id = Integer.parseInt(sc.nextLine());
+					int car_id = Integer.parseInt(sc.nextLine());
 					
 					try {
 						int valid = carsService.removeCar(car_id);
@@ -122,9 +134,25 @@ public class LotMain {
 					
 					break;
 				case 4:
-					System.out.println("Option 4 Under Cunstruction");
+					System.out.println("Retrieving all offers");
+					System.out.println("");
+					
+					try {
+						List<Offers> allOffersList = offersService.viewAllOffers();
+						if(allOffersList!=null && allOffersList.size()>0) {
+							System.out.println("There are "+ allOffersList.size()+" offers in this database. Printing their information now.");
+							for(Offers o:allOffersList) {
+								System.out.println(o);
+							}
+							System.out.println("");
+						}
+					}catch(BusinessException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 5:
+					break;
+				case 6:
 					System.out.println("Exiting....Thank you for using jason's  app.");
 					break;
 				default:
@@ -144,8 +172,8 @@ public class LotMain {
 				System.out.println("--------------------------------------------");
 				System.out.println("1)View Available Cars");
 				System.out.println("2)Make An Offer");
-				System.out.println("3)View details by customer name");
-				System.out.println("4)View transactions by account number");
+				System.out.println("3)View Status Of Offer");
+				System.out.println("4)Make a payment");
 				System.out.println("5)Exit");
 				try {
 					customerChoice = Integer.parseInt(sc.nextLine());
@@ -153,13 +181,75 @@ public class LotMain {
 	
 				switch (customerChoice) {
 				case 1:
-					System.out.println("Option 1 Under Cunstruction");
+					System.out.println("Retrieving information on all available cars in the lot");
+					System.out.println("");
+					
+					try {
+						List<Cars> allCarsList = carsService.viewAvailableCars();
+						if(allCarsList!=null && allCarsList.size()>0) {
+							System.out.println("There are "+ allCarsList.size()+" cars in this database. Printing their information now.");
+							for(Cars c:allCarsList) {
+								System.out.println(c);
+							}
+							System.out.println("");
+						}
+					}catch(BusinessException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 2:
-					System.out.println("Option 2 Under Cunstruction");
+					try {
+						System.out.println("Enter the new offer details:");
+						
+						System.out.println("Car ID: ");
+						int car_id = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("User ID: ");
+						int user_id = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("Offer: ");
+						double offer = Double.parseDouble(sc.nextLine());
+						
+						System.out.println("Asking price:");
+						double asking = Double.parseDouble(sc.nextLine());
+						
+						System.out.println("Years: ");
+						int years = Integer.parseInt(sc.nextLine());
+						
+						Offers offers = new Offers(car_id, user_id,offer,asking,years);
+						int valid = offersService.newOffer(offers);
+						
+						if (valid!=0) {
+							System.out.println("New Offer Submitted!");
+							System.out.println("\n");
+						}
+					}catch(NumberFormatException e ) {
+						System.out.println("Invalid input. Please try again with valid information");
+					}catch(BusinessException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				case 3:
-					System.out.println("Option 3 Under Cunstruction");
+					try {
+						System.out.println("Enter the offer details:");
+						
+						System.out.println("Offer ID: ");
+						int offer_id = Integer.parseInt(sc.nextLine());
+						
+						List<Offers> allOffers = offersService.viewStatus(offer_id);
+						if(allOffers!=null && allOffers.size()>0) {
+							System.out.println("There are "+ allOffers.size()+" cars in this database. Printing their information now.");
+							for(Offers o:allOffers) {
+								System.out.println(o);
+							}
+							System.out.println("");
+						}
+					}catch(BusinessException e) {
+						System.out.println(e.getMessage());
+					}catch(NumberFormatException e ) {
+						System.out.println("Invalid input. Please try again with valid information");
+					}
+					
 					break;
 				case 4:
 					System.out.println("Option 4 Under Cunstruction");
@@ -175,7 +265,71 @@ public class LotMain {
 		} while (customerChoice != 5);
 
 	}else if(choice == 3) 
-		System.out.println("Exititng app... Thanks  for using Jason's Dealership App!");
-		
+		do {
+			System.out.println("New User Menu");
+			System.out.println("--------------------------------------------");
+			System.out.println("1)Create username and password");
+			System.out.println("2)Create account");
+			System.out.println("3)Exit");
+			
+			try {
+				userChoice = Integer.parseInt(sc.nextLine());
+			} catch (NumberFormatException e) {}
+			
+			switch(userChoice) {
+			
+			case 1:
+				try {
+					System.out.println("Enter the new user details:");
+					
+					System.out.println("Username: ");
+					String username = sc.nextLine();
+					
+					System.out.println("Password: ");
+					String password = sc.nextLine();
+					
+					Login login = new Login(username, password);
+					int valid = loginService.newCredentials(login);
+					if (valid!=0) {
+						System.out.println("New User Succesfully created please continue with making an account.");
+						System.out.println("Your user ID is: "+ login.getUser_id());
+						System.out.println("\n");
+					}	
+					
+				}catch(InputMismatchException e) {
+					System.out.println("Invalid input please try agiain with valid details.");
+				}catch (BusinessException e) {
+					System.out.println(e.getMessage());
+
+				}
+				break;
+			case 2:
+				try {
+					System.out.println("Enter the new account details:");
+					System.out.println("Enter your User ID:");
+					int user_id = Integer.parseInt(sc.nextLine());
+					
+					Account account = new Account(user_id);
+					int valid = accountService.newAccount(account);
+					if (valid!=0) {
+						System.out.println("New Account Succesfully created you may now log in as a customer and submit offers for available cars");
+						System.out.println("\n");
+					}	
+				}catch(InputMismatchException e ) {
+					System.out.println("Invalid input please try agiain with valid details.");
+				}catch(BusinessException e ) {
+					System.out.println(e.getMessage());
+				}
+				break;
+			case 3:
+				System.out.println("Exiting....Thank you for using jason's  app.");
+				break;
+			default:
+				System.out.println("Invalid menu option. Input a valid menu choice.");
+				System.out.println("");
+				
+			}
+
+		}while(userChoice != 3);
 	}
 }

@@ -13,36 +13,12 @@ import com.app.dao.EmployeeDAO;
 import com.app.dao.dbutil.PostgresqlConnection;
 import com.app.dao.impl.EmployeeDAOImpl;
 import com.app.exception.BusinessException;
-import com.app.model.Customer;
 import com.app.model.Employee;
-import com.app.service.EmployeeServiceImpl;
+
 
 public class EmployeeDAOImpl implements EmployeeDAO{
 	
 	private static final Logger log = LogManager.getFormatterLogger(EmployeeDAO.class);
-		
-		@Override
-		public int newCustomer(Customer customer)throws BusinessException {
-			int c= 0;
-			try(Connection connection = PostgresqlConnection.getConnection()){
-				String sql ="insert into public.customer(user_id,name,street_address,dob,credit_score) values(?,?,?,?,?)  ";
-				PreparedStatement preparedStatement =connection.prepareStatement(sql);
-				preparedStatement.setInt(1,customer.getCustomer_id());
-				preparedStatement.setString(2, customer.getName());
-				preparedStatement.setString(3, customer.getStreet_address());
-				preparedStatement.setDate(4, new java.sql.Date(customer.getDob().getTime()));
-				preparedStatement.setInt(5, customer.getCredit_score());
-				
-				c= preparedStatement.executeUpdate();
-				
-				
-			} catch ( SQLException e) {
-				System.out.println(e);
-				throw new BusinessException("internal error occured contact sysadmin");
-			}
-			return c;
-		}
-
 		
 		
 		@Override

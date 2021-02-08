@@ -22,6 +22,15 @@ public class Cars {
 		this.cost = cost;
 		this.availability = availability;
 	}
+	
+	public Cars(String make, String model, int year, double cost, Boolean availability) {
+		super();
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.cost = cost;
+		this.availability = availability;
+	}
 
 	public int getCar_id() {
 		return car_id;

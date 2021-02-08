@@ -1,0 +1,55 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.dao.CarsDAO;
+import com.app.dao.impl.CarsDAOImpl;
+import com.app.exception.BusinessException;
+import com.app.model.Cars;
+
+
+public class CarsServiceImpl {
+
+	private CarsDAO carsDAO = new CarsDAOImpl();
+	
+	public int newCar(Cars car) throws BusinessException{
+		int valid = 0;
+		try {
+			if(carsDAO.newCar(car) != 0) 
+				valid = 1;	
+			else 
+				System.out.println("Car cannot be added. Please re-enter with valid car information");
+		}catch(BusinessException e) {
+			System.out.println(e.getMessage());
+		}
+		return valid;
+	}
+	
+	public List<Cars> viewAllCars() throws BusinessException {
+		List<Cars> allCarsList = null;
+		allCarsList = carsDAO.viewAllCars();
+		return allCarsList;
+	
+	}
+	
+	public int removeCar(int car_id) throws BusinessException{
+		int valid = 0;
+		try {
+			if(carsDAO.removeCar(car_id) != 0) {
+				valid = 1;
+			}else {
+				System.out.println("Could not remove car please try again with valid car ID");
+			}
+		
+		}catch(BusinessException e) {
+			System.out.println(e.getMessage());
+		}
+		return valid;
+	}
+	
+	public List<Cars> viewAllAvailable() throws BusinessException {
+		List<Cars> allCarsList = null;
+		allCarsList = carsDAO.viewAllCars();
+		return allCarsList;
+	}
+}

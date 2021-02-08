@@ -19,7 +19,11 @@ public class Account {
 		this.remaining_months = remaining_months;
 		this.monthly_rate = monthly_rate;
 	}
-
+	
+	public Account(int user_id) {
+		super();
+		this.user_id = user_id;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

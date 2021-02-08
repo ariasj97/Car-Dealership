@@ -1,0 +1,39 @@
+package com.app.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.app.dao.OffersDAO;
+import com.app.dao.dbutil.PostgresqlConnection;
+import com.app.exception.BusinessException;
+
+public class OffersDAOImpl implements OffersDAO {
+
+	@Override
+	public int newOffer() throws BusinessException {
+		int c = 0;
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			String sql ="insert into public.offers(car_id,user_id,offer_made,asking_price,years) values(?,?,?,?,?)  ";
+			PreparedStatement preparedStatement =connection.prepareStatement(sql);
+			preparedStatement.setString(1, offers.getMake());
+			preparedStatement.setString(2, offers.getModel());
+			preparedStatement.setInt(3,offers.getYear() );
+			preparedStatement.setDouble(4, offers.getCost());
+			preparedStatement.setBoolean(5, offers.getAvailability());
+			
+			c= preparedStatement.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e);
+			System.out.println("Entered invalid information please try again with valid car infromation");
+			throw new BusinessException("internal error occured contact sysadmin");
+		}
+		
+		
+		return c;
+	}
+
+}
