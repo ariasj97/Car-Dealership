@@ -1,5 +1,6 @@
 package com.app.main;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,12 +9,11 @@ import org.apache.logging.log4j.Logger;
 import com.app.dao.impl.LoginDAOImpl;
 import com.app.exception.BusinessException;
 import com.app.model.Login;
-import com.app.dao.EmployeeDAO;
 import com.app.dao.impl.EmployeeDAOImpl;
 import com.app.model.Employee;
 
 public class MainFunctions {
-	private static final Logger log = LogManager.getFormatterLogger(EmployeeDAO.class);
+	private static final Logger LOG = LogManager.getFormatterLogger(MainFunctions.class);
 	
 	int logInMenu() {
 		Scanner sc = new Scanner (System.in);
@@ -59,6 +59,7 @@ public class MainFunctions {
 				System.out.println("Successfully Logged In As Customer! ");
 				System.out.println("");
 				System.out.println("Your user ID is: "+ login.getUser_id());
+				LOG.trace("User "+ login.getUser_id()+" has logged in");
 				valid = true;
 			}
 		}catch(BusinessException e) {
@@ -70,15 +71,15 @@ public class MainFunctions {
 	boolean LogInEmployee(){
 		boolean valid= false;
 		
-		
-		EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-		int user_id,account_number;
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Please enter your user ID:");
-		user_id = scan.nextInt();
-		System.out.println("Please enter your account_number:");
-		account_number = scan.nextInt();
 		try {
+			EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+			int user_id,account_number;
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Please enter your user ID:");
+			user_id = scan.nextInt();
+			System.out.println("Please enter your account_number:");
+			account_number = scan.nextInt();
+	
 			Employee employee = employeeDAO.employeeLogin(user_id, account_number);
 			if(employee !=null) {
 				System.out.println("Successfully Logged In As Employee! ");
@@ -86,8 +87,11 @@ public class MainFunctions {
 				System.out.println("Your user ID is: "+ employee.getEmployee_id());
 				System.out.println("");
 				valid = true;
-				log.trace("Employee "+employee.getEmployee_id()+ "has logged in");
+	
+				LOG.trace("Employee "+employee.getEmployee_id()+ " has logged in");
 			}
+		}catch(InputMismatchException e) {
+				System.out.println("Please enter valid information");
 		}catch(BusinessException e) {
 			System.out.println(e);
 		}

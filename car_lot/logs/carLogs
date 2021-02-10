@@ -1,0 +1,60 @@
+
+09 Feb 2021 16:16:27 MainFunctions [INFO] User 100 has logged in
+09 Feb 2021 16:19:01 MainFunctions [INFO] User 100 has logged in
+09 Feb 2021 16:19:43 MainFunctions [INFO] User 100 has logged in
+09 Feb 2021 16:28:27 MainFunctions [INFO] User 100 has logged in
+09 Feb 2021 16:31:18 MainFunctions [INFO] User 100 has logged in
+09 Feb 2021 16:33:48 MainFunctions [TRACE] User 100 has logged in
+2021-02-09 17:41:23,113 ERROR c.a.m.MainFunctions [main] Employee 99 has logged in
+2021-02-09 17:41:23,116 FATAL c.a.m.MainFunctions [main] Employee 99 has logged in
+2021-02-09 17:42:33,720 ERROR c.a.m.MainFunctions [main] errorEmployee 99 has logged in
+2021-02-09 17:42:33,724 FATAL c.a.m.MainFunctions [main] fatalEmployee 99 has logged in
+09 Feb 2021 16:44:51 MainFunctions [INFO] infoEmployee 99 has logged in
+09 Feb 2021 16:44:51 MainFunctions [ERROR] errorEmployee 99 has logged in
+09 Feb 2021 16:44:51 MainFunctions [FATAL] fatalEmployee 99 has logged in
+09 Feb 2021 16:44:51 MainFunctions [WARN] warnEmployee 99 has logged in
+09 Feb 2021 16:44:51 MainFunctions [DEBUG] debugEmployee 99 has logged in
+09 Feb 2021 16:46:05 MainFunctions [DEBUG] debugEmployee 99 has logged in
+09 Feb 2021 16:46:14 MainFunctions [DEBUG] debugEmployee 99 has logged in
+09 Feb 2021 16:47:07 MainFunctions [TRACE] User 100 has logged in
+09 Feb 2021 17:05:55 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 17:07:34 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 17:39:06 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 17:40:34 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 17:55:27 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 17:57:29 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:00:16 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:03:54 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:06:12 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:08:41 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:10:18 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:13:25 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:19:24 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:20:16 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:22:14 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:26:09 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:31:15 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:33:41 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 18:34:22 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 19:39:35 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 19:39:53 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 19:41:23 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 19:45:31 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 19:51:21 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 20:05:04 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 20:26:36 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 21:05:54 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 21:09:02 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 21:09:31 LotMain [TRACE] User 123 has been accepted
+09 Feb 2021 21:12:35 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 21:12:56 LotMain [TRACE] User 123 has been accepted
+09 Feb 2021 21:55:06 MainFunctions [TRACE] User 101 has logged in
+09 Feb 2021 21:56:27 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 22:02:30 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 22:02:49 LotMain [TRACE] User 124 has been accepted
+09 Feb 2021 22:08:24 MainFunctions [TRACE] User 102 has logged in
+09 Feb 2021 22:08:49 MainFunctions [TRACE] User 102 has logged in
+09 Feb 2021 22:09:07 MainFunctions [TRACE] User 102 has logged in
+09 Feb 2021 22:10:09 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 22:10:13 MainFunctions [TRACE] Employee 99 has logged in
+09 Feb 2021 22:11:44 LotMain [TRACE] User 125 has been accepted

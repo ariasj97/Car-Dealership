@@ -7,18 +7,33 @@ public class Transaction {
 	private int car_id;
 	private double payment_amount;
 	private Date date;
+	private int account_number;
 	
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(int car_id, double payment_amount, Date date) {
+
+	public Transaction(int car_id, double payment_amount, Date date, int account_number) {
 		super();
 		this.car_id = car_id;
 		this.payment_amount = payment_amount;
 		this.date = date;
+		this.account_number = account_number;
 	}
+	
+	public int getAccount_number() {
+		return account_number;
+	}
+
+
+
+	public void setAccount_number(int account_number) {
+		this.account_number = account_number;
+	}
+
+
 
 	public int getCar_id() {
 		return car_id;
@@ -48,6 +63,7 @@ public class Transaction {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + account_number;
 		result = prime * result + car_id;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		long temp;
@@ -65,6 +81,8 @@ public class Transaction {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
+		if (account_number != other.account_number)
+			return false;
 		if (car_id != other.car_id)
 			return false;
 		if (date == null) {
@@ -79,7 +97,8 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [car_id=" + car_id + ", payment_amount=" + payment_amount + ", date=" + date + "]";
+		return "Transaction [car_id=" + car_id + ", payment_amount=" + payment_amount + ", date=" + date
+				+ ", account_number=" + account_number + "]";
 	}
 	
 	

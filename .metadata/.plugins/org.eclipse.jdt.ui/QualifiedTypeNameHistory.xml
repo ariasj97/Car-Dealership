@@ -10,7 +10,6 @@
     <fullyQualifiedTypeName name="com.app.dao.impl.CarsDAOImpl"/>
     <fullyQualifiedTypeName name="com.app.model.Cars"/>
     <fullyQualifiedTypeName name="com.app.service.CarsServiceImpl"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
     <fullyQualifiedTypeName name="com.app.exception.BusinessException"/>
     <fullyQualifiedTypeName name="com.app.dao.impl.OffersDAOImpl"/>
@@ -23,4 +22,6 @@
     <fullyQualifiedTypeName name="com.app.dao.impl.AccountDAOImpl"/>
     <fullyQualifiedTypeName name="com.app.model.Account"/>
     <fullyQualifiedTypeName name="com.app.service.AccountServiceImpl"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,120 @@
+package com.app.main;
+
+import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.app.dao.impl.LoginDAOImpl;
+import com.app.exception.BusinessException;
+import com.app.model.Login;
+import com.app.dao.EmployeeDAO;
+import com.app.dao.impl.EmployeeDAOImpl;
+import com.app.model.Employee;
+
+public class MainFunctions {
+	private static final Logger log = LogManager.getFormatterLogger(MainFunctions.class);
+	
+	int logInMenu() {
+		Scanner sc = new Scanner (System.in);
+		
+		System.out.println("Welcome to Jason's Car Dealership V1.0");
+		int ch = 0;
+		
+		do {
+			
+			System.out.println("Log In Menu");
+			System.out.println("---------------------------------------");
+			System.out.println(System.lineSeparator());
+			System.out.println("1) Log in as Employee");
+			System.out.println("2) Log in as Customer");
+			System.out.println("3) Register a new Customer");
+			System.out.println("4) Exit app");
+			try {
+				ch= Integer.parseInt(sc.nextLine());
+			}catch(NumberFormatException e) {}
+			
+			if(ch >=1 && ch <5)
+				return ch;
+			else {
+				System.out.println("Invalid menu choice please try again.");
+				System.out.println("");
+			}
+		}while(true);
+	
+	}
+	
+	boolean LogInAsCustomer(){
+		boolean valid= false;
+		LoginDAOImpl loginDAO = new LoginDAOImpl();
+		String username, password;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter your username:");
+		username = scan.nextLine();
+		System.out.println("Please enter your password:");
+		password = scan.nextLine();
+		try {
+			Login login = loginDAO.credentialVerification(username,password);
+			if(login !=null) {
+				System.out.println("Successfully Logged In As Customer! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ login.getUser_id());
+				log.debug("User "+ login.getUser_id()+" has logged in");
+				valid = true;
+			}
+		}catch(BusinessException e) {
+			System.out.println(e);
+		}
+		return valid;
+	}
+	
+	boolean LogInEmployee(){
+		boolean valid= false;
+		
+		
+		EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+		int user_id,account_number;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter your user ID:");
+		user_id = scan.nextInt();
+		System.out.println("Please enter your account_number:");
+		account_number = scan.nextInt();
+		try {
+			Employee employee = employeeDAO.employeeLogin(user_id, account_number);
+			if(employee !=null) {
+				System.out.println("Successfully Logged In As Employee! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ employee.getEmployee_id());
+				System.out.println("");
+				valid = true;
+				log.debug("Employee "+employee.getEmployee_id()+ "has logged in");
+			}
+		}catch(BusinessException e) {
+			System.out.println(e);
+		}
+		return valid;
+	}
+	
+	boolean NewCustomer(){
+		boolean valid= false;
+		LoginDAOImpl loginDAO = new LoginDAOImpl();
+		String username, password;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter a username:");
+		username = scan.nextLine();
+		System.out.println("Please enter your password:");
+		password = scan.nextLine();
+		try {
+			Login login = loginDAO.credentialVerification(username,password);
+			if(login !=null) {
+				System.out.println("Successfully Logged In As Customer! ");
+				System.out.println("");
+				System.out.println("Your user ID is: "+ login.getUser_id());
+				valid = true;
+			}
+		}catch(BusinessException e) {
+			System.out.println(e);
+		}
+		return valid;
+	}
+}

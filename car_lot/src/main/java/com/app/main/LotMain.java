@@ -22,7 +22,7 @@ import com.app.service.OffersServiceImpl;
 
 public class LotMain {
 
-	private static final Logger log = LogManager.getFormatterLogger(EmployeeDAO.class);
+	private static final Logger LOG = LogManager.getFormatterLogger(LotMain.class);
 
 	public static void main(String[] args) {
 
@@ -64,6 +64,8 @@ public class LotMain {
 				} catch (NumberFormatException e) {}
 
 				switch (employeeChoice) {
+				
+				//Add Cars
 				case 1:
 					try {
 						System.out.println("Enter the new cars details:");
@@ -98,6 +100,8 @@ public class LotMain {
 					}
 					
 					break;
+					
+				//View All Cars
 				case 2:
 					System.out.println("Retrieving information on all cars in the lot");
 					System.out.println("");
@@ -116,23 +120,30 @@ public class LotMain {
 					}
 
 					break;
-				case 3:
-					System.out.println("Enter the new cars details:");
-					System.out.println("Car ID: ");
-					int car_id = Integer.parseInt(sc.nextLine());
 					
+				//Remove Cars
+				case 3:
 					try {
+						System.out.println("Enter the new cars details:");
+						System.out.println("Car ID: ");
+						int car_id = Integer.parseInt(sc.nextLine());
+					
+					
 						int valid = carsService.removeCar(car_id);
 						if (valid!=0) {
 							System.out.println("Removed car with car ID = " +car_id);
 							System.out.println("");
 							break;
 						}
+					}catch(NumberFormatException e){
+						System.out.println("Please enter a valid number");
 					}catch(BusinessException e) {
 						System.out.println(e.getMessage());
 					}
 					
 					break;
+				
+				//View All offers
 				case 4:
 					System.out.println("Retrieving all offers");
 					System.out.println("");
@@ -150,8 +161,46 @@ public class LotMain {
 						System.out.println(e.getMessage());
 					}
 					break;
+					
+				//Accept Offers
 				case 5:
+					try {
+						System.out.println("Please enter details of the offer you want to accept");
+						System.out.println("Offer ID:");
+						int offer_id = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("User ID:");
+						int user_id = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("Years");
+						int months = Integer.parseInt(sc.nextLine());
+						months = months * 12;
+						
+						System.out.println("Cost:");
+						double rate = Double.parseDouble(sc.nextLine());
+						rate = rate/months;
+						rate = Math.round(rate*100.0)/100;
+						
+						System.out.println("Car ID:");
+						int car_id = Integer.parseInt(sc.nextLine());
+						
+						System.out.println("User ID: "+user_id);
+						System.out.println("Car ID: "+car_id);
+						
+						int valid = offersService.acceptOffer(offer_id,user_id,months, rate, car_id);
+						if (valid!=0) {
+							System.out.println("Offer Accepted and Account updated!");
+							System.out.println("\n");
+							LOG.trace("User "+ offer_id+" has been accepted");
+						}	
+					}catch(NumberFormatException e){
+						System.out.println("Please enter a valid number");
+					}catch(BusinessException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
+					
+				//Exit
 				case 6:
 					System.out.println("Exiting....Thank you for using jason's  app.");
 					break;
@@ -160,7 +209,7 @@ public class LotMain {
 					System.out.println("");
 				}
 
-			} while (employeeChoice != 5);
+			} while (employeeChoice != 6);
 
 		} else if (choice == 2) {
 
@@ -180,6 +229,8 @@ public class LotMain {
 				} catch (NumberFormatException e) {}
 	
 				switch (customerChoice) {
+				
+				//View available cars
 				case 1:
 					System.out.println("Retrieving information on all available cars in the lot");
 					System.out.println("");
@@ -197,6 +248,8 @@ public class LotMain {
 						System.out.println(e.getMessage());
 					}
 					break;
+					
+				//Make an offer
 				case 2:
 					try {
 						System.out.println("Enter the new offer details:");
@@ -229,6 +282,8 @@ public class LotMain {
 						System.out.println(e.getMessage());
 					}
 					break;
+					
+				//View Status Of Offer
 				case 3:
 					try {
 						System.out.println("Enter the offer details:");
@@ -254,6 +309,8 @@ public class LotMain {
 				case 4:
 					System.out.println("Option 4 Under Cunstruction");
 					break;
+					
+				//Exit
 				case 5:
 					System.out.println("Exiting....Thank you for using jason's  app.");
 					break;

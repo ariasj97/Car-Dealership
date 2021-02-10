@@ -6,20 +6,31 @@ public class Account {
 	private int account_num;
 	private int remaining_months;
 	private double monthly_rate;
+	private int car_id;
 	
-	public Account() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Account(int user_id, int account_num, int remaining_months, double monthly_rate) {
+	
+	public Account(int user_id, int account_num, int remaining_months, double monthly_rate, int car_id) {
 		super();
 		this.user_id = user_id;
 		this.account_num = account_num;
 		this.remaining_months = remaining_months;
 		this.monthly_rate = monthly_rate;
+		this.car_id = car_id;
 	}
-	
+
+	public Account() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getCar_id() {
+		return car_id;
+	}
+
+	public void setCar_id(int car_id) {
+		this.car_id = car_id;
+	}
+
 	public Account(int user_id) {
 		super();
 		this.user_id = user_id;
@@ -61,6 +72,7 @@ public class Account {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + account_num;
+		result = prime * result + car_id;
 		long temp;
 		temp = Double.doubleToLongBits(monthly_rate);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -80,6 +92,8 @@ public class Account {
 		Account other = (Account) obj;
 		if (account_num != other.account_num)
 			return false;
+		if (car_id != other.car_id)
+			return false;
 		if (Double.doubleToLongBits(monthly_rate) != Double.doubleToLongBits(other.monthly_rate))
 			return false;
 		if (remaining_months != other.remaining_months)
@@ -92,7 +106,7 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [user_id=" + user_id + ", account_num=" + account_num + ", remaining_months=" + remaining_months
-				+ ", monthly_rate=" + monthly_rate + "]";
+				+ ", monthly_rate=" + monthly_rate + ", car_id=" + car_id + "]";
 	}
 	
 	

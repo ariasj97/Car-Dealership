@@ -29,6 +29,12 @@ public class OffersDAOImpl implements OffersDAO {
 			
 			c= preparedStatement.executeUpdate();
 			
+			String sql2 ="update public.account set car_id =? where user_id=?";
+			PreparedStatement preparedStatement2 =connection.prepareStatement(sql2);
+			preparedStatement2.setInt(1, offer.getCar_id());
+			preparedStatement2.setInt(2, offer.getUser_id());
+			c= preparedStatement2.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -108,6 +114,36 @@ public class OffersDAOImpl implements OffersDAO {
 		
 		
 		return offersList;
+	}
+
+	@Override
+	public int acceptOffer(int offer_id,int user_id,int months, double rate, int car_id) throws BusinessException {
+		int c = 0;
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			String sql ="update public.offers set accepted = true where offer_id=?";
+			PreparedStatement preparedStatement =connection.prepareStatement(sql);
+			preparedStatement.setInt(1, offer_id);
+			
+			c= preparedStatement.executeUpdate();
+			
+				String sql2 ="update public.account set remaining_months =?,monthly_rate =? where user_id=? and car_id =?";
+				PreparedStatement preparedStatement2 =connection.prepareStatement(sql2);
+				preparedStatement2.setInt(1, months);
+				preparedStatement2.setDouble(2, rate);
+				preparedStatement2.setInt(3, user_id);
+				preparedStatement2.setInt(4, car_id);
+				c= preparedStatement2.executeUpdate();
+				
+				
+			
+		} catch (SQLException e) {
+			System.out.println(e);
+			System.out.println("Entered invalid information please try again with valid offer infromation");
+			throw new BusinessException("internal error occured contact sysadmin");
+		}
+		
+		
+		return c;
 	}
 
 }

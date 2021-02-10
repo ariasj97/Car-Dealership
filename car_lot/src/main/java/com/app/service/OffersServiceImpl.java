@@ -36,4 +36,18 @@ public class OffersServiceImpl {
 		allOffers = offersDAO.viewStatus(offer_id);
 		return allOffers;
 	}
+	
+	public int acceptOffer(int offer_id,int user_id,int months, double rate, int car_id) throws BusinessException{
+		int valid=0;
+		try {
+			if(offersDAO.acceptOffer(offer_id,user_id,months,rate,car_id) !=0) {
+				valid = 1;
+			}else {
+				System.out.println("Offer was not accepted please try again with correct offer details!");
+			}
+		}catch (BusinessException e) {
+			System.out.println(e.getMessage());
+		}
+		return valid;
+	}
 }
