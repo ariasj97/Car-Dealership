@@ -40,10 +40,11 @@ public class MainFunctions {
 				System.out.println("Invalid menu choice please try again.");
 				System.out.println("");
 			}
+			
 		}while(true);
 	
 	}
-	
+		
 	boolean LogInAsCustomer(){
 		boolean valid= false;
 		LoginDAOImpl loginDAO = new LoginDAOImpl();
@@ -65,6 +66,7 @@ public class MainFunctions {
 		}catch(BusinessException e) {
 			System.out.println(e);
 		}
+		
 		return valid;
 	}
 	
@@ -79,7 +81,8 @@ public class MainFunctions {
 			user_id = scan.nextInt();
 			System.out.println("Please enter your account_number:");
 			account_number = scan.nextInt();
-	
+			
+			
 			Employee employee = employeeDAO.employeeLogin(user_id, account_number);
 			if(employee !=null) {
 				System.out.println("Successfully Logged In As Employee! ");
@@ -118,6 +121,8 @@ public class MainFunctions {
 		}catch(BusinessException e) {
 			System.out.println(e);
 		}
+		
 		return valid;
 	}
+
 }

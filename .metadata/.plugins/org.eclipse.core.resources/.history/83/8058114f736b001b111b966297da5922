@@ -1,0 +1,53 @@
+package com.app.service;
+
+import java.util.List;
+
+import com.app.dao.OffersDAO;
+import com.app.dao.impl.OffersDAOImpl;
+import com.app.exception.BusinessException;
+import com.app.model.Cars;
+import com.app.model.Offers;
+
+public class OffersServiceImpl {
+
+	
+	private OffersDAO offersDAO = new OffersDAOImpl();
+	
+	public int newOffer(Offers offer) throws BusinessException{
+		int valid=0;
+		try {
+			if(offersDAO.newOffer(offer) !=0) {
+				valid = 1;
+			}
+		}catch (BusinessException e) {
+			System.out.println(e.getMessage());
+		}
+		return valid;
+	}
+	
+	public List<Offers> viewAllOffers() throws BusinessException {
+		List<Offers> allOffers= null;
+		allOffers = offersDAO.viewAllOffers();
+		return allOffers;
+	}
+	
+	public List<Offers> viewStatus(int offer_id) throws BusinessException {
+		List<Offers> allOffers= null;
+		allOffers = offersDAO.viewStatus(offer_id);
+		return allOffers;
+	}
+	
+	public int acceptOffer(int offer_id,int user_id,int months, double rate, int car_id) throws BusinessException{
+		int valid=0;
+		try {
+			if(offersDAO.acceptOffer(offer_id,user_id,months,rate,car_id) !=0) {
+				valid = 1;
+			}else {
+				System.out.println("Offer was not accepted please try again with correct offer details!");
+			}
+		}catch (BusinessException e) {
+			System.out.println(e.getMessage());
+		}
+		return valid;
+	}
+}

@@ -58,3 +58,27 @@
 09 Feb 2021 22:10:09 MainFunctions [TRACE] Employee 99 has logged in
 09 Feb 2021 22:10:13 MainFunctions [TRACE] Employee 99 has logged in
 09 Feb 2021 22:11:44 LotMain [TRACE] User 125 has been accepted
+10 Feb 2021 00:04:41 MainFunctions [TRACE] User 100 has logged in
+10 Feb 2021 00:11:11 MainFunctions [TRACE] User 100 has logged in
+10 Feb 2021 00:11:33 MainFunctions [TRACE] User 100 has logged in
+10 Feb 2021 00:12:13 LotMain [TRACE] Payment made on car with car ID:102
+10 Feb 2021 01:51:32 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 01:52:25 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 01:54:21 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 01:55:51 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 01:57:38 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 01:57:53 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:00:12 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:04:01 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:06:04 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:07:38 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:12:35 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:13:28 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 02:14:38 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 02:15:04 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 02:15:27 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 02:16:42 MainFunctions [TRACE] Employee 99 has logged in
+10 Feb 2021 02:17:27 LotMain [TRACE] User 126 has been accepted
+10 Feb 2021 02:17:59 MainFunctions [TRACE] User 103 has logged in
+10 Feb 2021 02:24:17 LotMain [TRACE] Payment made on car with car ID:108
+10 Feb 2021 02:36:48 MainFunctions [TRACE] User 104 has logged in

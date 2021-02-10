@@ -1,9 +1,9 @@
 package com.app.dao;
 
 import com.app.exception.BusinessException;
-import com.app.model.Transaction;
+
 
 public interface TransactionDAO {
 
-	public int makePayment(Transaction transaction) throws BusinessException;
+	public int makePayment(int car_id,double payment_amount, int account_number) throws BusinessException;
 }

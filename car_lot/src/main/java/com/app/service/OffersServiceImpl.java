@@ -5,7 +5,7 @@ import java.util.List;
 import com.app.dao.OffersDAO;
 import com.app.dao.impl.OffersDAOImpl;
 import com.app.exception.BusinessException;
-import com.app.model.Cars;
+
 import com.app.model.Offers;
 
 public class OffersServiceImpl {
